@@ -7,7 +7,6 @@ import androidx.lifecycle.lifecycleScope
 import com.crypto.currency.databinding.ActivityCurrencyDetailBinding
 import com.crypto.currency.presentation.viewmodel.CurrencyDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -25,7 +24,7 @@ class CurrencyDetailActivity : AppCompatActivity() {
 
     private fun getCurrencyDetail() {
         lifecycleScope.launch {
-            currencyDetailViewModel.state.collectLatest {
+            currencyDetailViewModel.state.collect {
                 if (it.currencyModel != null) {
                     binding.txtTitle.text = it.currencyModel.name
                     binding.txtDescription.text = it.currencyModel.description

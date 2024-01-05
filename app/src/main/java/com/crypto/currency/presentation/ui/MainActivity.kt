@@ -2,6 +2,8 @@ package com.crypto.currency.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +13,6 @@ import com.crypto.currency.databinding.ActivityMainBinding
 import com.crypto.currency.presentation.adapter.AllCurrenciesAdapter
 import com.crypto.currency.presentation.viewmodel.AllCurrenciesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -43,10 +44,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun getAllCurrencies() {
         lifecycleScope.launch {
-            allCurrenciesViewModel.state.collectLatest {
-                if (it.currencyList.isNotEmpty()) {
-                    adapter.currencyList.addAll(it.currencyList)
-                    adapter.notifyDataSetChanged()
+            allCurrenciesViewModel.state.collect {
+                if (!it.isLoading) {
+                    binding.progressBar.visibility = View.GONE
+                    Log.e("data*", "No Loading")
+                    if (it.error.isNotEmpty()) {
+                        Log.e("data*", "Error: ${it.error}")
+                    } else {
+
+                        if (it.currencyList.isNotEmpty()) {
+                            adapter.currencyList.addAll(it.currencyList)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+                } else {
+                    Log.e("data*", "Loading")
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }

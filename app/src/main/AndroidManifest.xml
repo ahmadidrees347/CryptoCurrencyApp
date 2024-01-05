@@ -17,10 +17,10 @@
         android:theme="@style/Theme.CryptoCurrencyApp"
         tools:targetApi="31" >
         <activity
-            android:name=".presentation.ui.CurrencyDetailActivity"
+            android:name=".presentation.ui.currency_detail.CurrencyDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.MainActivity"
+            android:name=".presentation.ui.currency_list.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

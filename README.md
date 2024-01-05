@@ -3,7 +3,7 @@ Android - Clean Architecture - MVVM - Kotlin - Kotlin-Flow
 
 Introduction
 -----------------
-A Currency application that demonstrates Clean Architecture and is written in Kotlin.
+A Currency application with JetPack-Compose that demonstrates Clean Architecture in Kotlin.
 
 Clean architecture
 -----------------

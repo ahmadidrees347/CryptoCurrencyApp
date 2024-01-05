@@ -1,5 +1,7 @@
 package com.crypto.currency.presentation.viewmodel
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,8 +10,6 @@ import com.crypto.currency.common.Resource
 import com.crypto.currency.domain.usecase.GetCurrencyDetailUseCase
 import com.crypto.currency.presentation.model.CurrencyDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -20,8 +20,8 @@ class CurrencyDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(CurrencyDetailState())
-    var state: StateFlow<CurrencyDetailState> = _state
+    private val _state = mutableStateOf(CurrencyDetailState())
+    val state: State<CurrencyDetailState> = _state
 
     init {
         savedStateHandle.get<String>(Constants.PARAM_CURRENCY_ID)?.let { currencyId ->
@@ -37,7 +37,7 @@ class CurrencyDetailViewModel @Inject constructor(
                 }
                 is Resource.Error -> {
                     _state.value = CurrencyDetailState(
-                        error = result.message ?: "An unexpected error occured"
+                        error = result.message ?: "An unexpected error occurred"
                     )
                 }
                 is Resource.Loading -> {

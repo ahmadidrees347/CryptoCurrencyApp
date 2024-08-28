@@ -1,6 +1,5 @@
 package com.crypto.currency.data.remote
 
-import com.crypto.currency.common.Constants
 import com.crypto.currency.data.remote.dto.CurrencyDetailDto
 import com.crypto.currency.data.remote.dto.CurrencyDto
 import io.ktor.client.HttpClient
@@ -16,7 +15,7 @@ class CurrencyAPIV1(private val client: HttpClient) {
 
     suspend fun getAllCurrencies(): List<CurrencyDto> {
         return try {
-            val response = client.get { url("${Constants.BASE_URL}/v1/coins") }
+            val response = client.get { url(HttpRoutes.GET_ALL_CURRENCIES) }
             if (response.status == HttpStatusCode.OK) {
                 response.body()
             } else {
@@ -44,7 +43,7 @@ class CurrencyAPIV1(private val client: HttpClient) {
 
     suspend fun getCurrencyById(currencyId: String): CurrencyDetailDto? {
         return try {
-            val response = client.get { url("${Constants.BASE_URL}/v1/coins/$currencyId") }
+            val response = client.get { url("${HttpRoutes.GET_ALL_CURRENCIES}/$currencyId") }
             if (response.status == HttpStatusCode.OK) {
                 response.body()
             } else {

@@ -1,6 +1,8 @@
 package com.crypto.currency.di
 
 import com.crypto.currency.BuildConfig
+import com.crypto.currency.common.Constants
+import com.crypto.currency.data.remote.CurrencyAPI
 import com.crypto.currency.data.remote.CurrencyAPIV1
 import com.crypto.currency.data.repository.CurrencyRepositoryImpl
 import com.crypto.currency.domain.repository.CurrencyRepository
@@ -15,6 +17,8 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.gson.gson
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.text.DateFormat
 import javax.inject.Singleton
 
@@ -22,15 +26,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-//    @Provides
-//    @Singleton
-//    fun provideAPIServiceV1(): CurrencyAPI {
-//        return Retrofit.Builder()
-//            .baseUrl(Constants.BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//            .create(CurrencyAPI::class.java)
-//    }
+    @Provides
+    @Singleton
+    fun provideAPIServiceV1(): CurrencyAPI {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CurrencyAPI::class.java)
+    }
 
 
     class ApiLogger : Logger {

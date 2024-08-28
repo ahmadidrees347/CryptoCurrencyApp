@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GetCurrencyDetailUseCase @Inject constructor(
     private val repository: CurrencyRepository
 ) {
-    operator fun invoke(currencyId: String): Flow<Resource<CurrencyDetailModel>> = flow {
+    operator fun invoke(currencyId: String): Flow<Resource<CurrencyDetailModel?>> = flow {
         try {
             emit(Resource.Loading())
             emit(Resource.Success(repository.getCurrencyById(currencyId)))

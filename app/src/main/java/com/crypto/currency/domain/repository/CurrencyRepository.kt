@@ -7,5 +7,5 @@ interface CurrencyRepository {
 
     suspend fun getAllCurrencies(): List<CurrencyModel>
 
-    suspend fun getCurrencyById(currencyId: String): CurrencyDetailModel
+    suspend fun getCurrencyById(currencyId: String): CurrencyDetailModel?
 }
